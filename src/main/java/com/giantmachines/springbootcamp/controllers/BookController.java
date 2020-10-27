@@ -2,6 +2,7 @@ package com.giantmachines.springbootcamp.controllers;
 
 import com.giantmachines.springbootcamp.models.Book;
 import com.giantmachines.springbootcamp.requests.CreateBookRequest;
+import com.giantmachines.springbootcamp.services.BookService;
 import com.giantmachines.springbootcamp.utils.ResponseFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,36 +20,31 @@ import java.util.Optional;
 @RequestMapping("books")
 public class BookController {
 
-  private List<Book> bookDb = new ArrayList<>();
+  private BookService bookService;
+  
+  public BookController(BookService bookService) {
+    this.bookService = bookService;
+  }
 
   @PostMapping
   public ResponseEntity<Book> create(@Valid @RequestBody CreateBookRequest createBookRequest) {
-    long newId = bookDb.isEmpty()
-            ? 1
-            : bookDb.get(bookDb.size() - 1).getId() + 1;
 
-    Book book = Book
-            .builder()
-            .id(newId)
-            .title(createBookRequest.getTitle())
-            .build();
-
-    bookDb.add(book);
+    Book book = bookService.create(createBookRequest);
 
     return ResponseFactory.created(book);
   }
 
   @GetMapping
   public ResponseEntity<List<Book>> getAll() {
-    return ResponseFactory.ok(bookDb);
+    List<Book> books = bookService.getAll();
+
+    return ResponseFactory.ok(books);
   }
 
   @GetMapping("/{id}")
   public ResponseEntity<Book> getById(@PathVariable long id) {
-    Optional<Book> book = bookDb
-            .stream()
-            .filter(b -> b.getId() == id)
-            .findFirst();
+
+    Optional<Book> book = bookService.get(id);
 
     return ResponseFactory.ok(book);
   }
