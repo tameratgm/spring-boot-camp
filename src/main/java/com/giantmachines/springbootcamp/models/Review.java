@@ -2,7 +2,6 @@ package com.giantmachines.springbootcamp.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,8 +13,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -23,31 +20,23 @@ import java.util.List;
 @Builder
 @Getter
 @Setter
-public class Book {
+public class Review {
 
   @Id
   @GeneratedValue
   private long id;
 
-  private String title;
-
   @JsonManagedReference
   @ManyToOne(cascade = CascadeType.ALL)
-  private User owner;
-
-  @OneToMany(mappedBy = "book")
-  @Builder.Default
-  private List<Review> reviews = List.of();
+  private User writer;
 
   @JsonIgnore
-  public boolean isCheckedOut() {
-    return owner != null;
-  }
+  @ManyToOne(cascade = CascadeType.ALL)
+  private Book book;
 
-  @JsonProperty
-  public double score() {
-    return reviews.stream()
-                   .mapToDouble(Review::getScore)
-                   .reduce(0f, Double::sum) / reviews.size();
-  }
+  private String title;
+
+  private String text;
+
+  private int score;
 }
