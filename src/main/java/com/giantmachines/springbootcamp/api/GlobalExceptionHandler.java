@@ -9,6 +9,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
@@ -46,6 +47,17 @@ class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
             .build();
 
     return ResponseFactory.of(HttpStatus.BAD_REQUEST, error);
+  }
+
+  @ExceptionHandler(HttpClientErrorException.class)
+  ResponseEntity<ApiError> handleHttpClientErrorException(HttpClientErrorException e) {
+    ApiError error = ApiError.builder()
+            .message(e.getLocalizedMessage())
+            .status(e.getStatusCode())
+            .errors(List.of(e.getResponseBodyAsString()))
+            .build();
+
+    return ResponseFactory.of(e.getStatusCode(), error);
   }
 
   @Override

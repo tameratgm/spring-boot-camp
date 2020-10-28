@@ -40,8 +40,8 @@ public class NewYorkTimesBookService {
             .collect(Collectors.toList());
   }
 
-  private String createUrl(String path) {
-    return baseUrl + "/" + path + "?" + "api-key=" + apiKey;
+  private String createUrl(String resource) {
+    return String.format("%s/%s?api-key=%s", baseUrl, resource, apiKey);
   }
 
   // Normally, this is considered bad practice
