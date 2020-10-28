@@ -1,8 +1,8 @@
 package com.giantmachines.springbootcamp.services.impl;
 
+import com.giantmachines.springbootcamp.api.requests.CreateBookRequest;
 import com.giantmachines.springbootcamp.models.Book;
 import com.giantmachines.springbootcamp.repositories.BookRepository;
-import com.giantmachines.springbootcamp.requests.CreateBookRequest;
 import com.giantmachines.springbootcamp.services.BookService;
 import com.giantmachines.springbootcamp.utils.CollectionFactory;
 import org.springframework.stereotype.Service;

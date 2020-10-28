@@ -1,7 +1,7 @@
 package com.giantmachines.springbootcamp.controllers;
 
+import com.giantmachines.springbootcamp.api.requests.CreateBookRequest;
 import com.giantmachines.springbootcamp.models.Book;
-import com.giantmachines.springbootcamp.requests.CreateBookRequest;
 import com.giantmachines.springbootcamp.services.BookService;
 import com.giantmachines.springbootcamp.utils.ResponseFactory;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +21,7 @@ import java.util.Optional;
 public class BookController {
 
   private BookService bookService;
-  
+
   public BookController(BookService bookService) {
     this.bookService = bookService;
   }

@@ -1,7 +1,7 @@
 package com.giantmachines.springbootcamp.services;
 
+import com.giantmachines.springbootcamp.api.requests.CreateBookRequest;
 import com.giantmachines.springbootcamp.models.Book;
-import com.giantmachines.springbootcamp.requests.CreateBookRequest;
 
 import java.util.List;
 import java.util.Optional;

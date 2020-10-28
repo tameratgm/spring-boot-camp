@@ -1,7 +1,7 @@
 package com.giantmachines.springbootcamp.controllers;
 
+import com.giantmachines.springbootcamp.api.requests.CreateUserRequest;
 import com.giantmachines.springbootcamp.models.User;
-import com.giantmachines.springbootcamp.requests.CreateUserRequest;
 import com.giantmachines.springbootcamp.services.UserService;
 import com.giantmachines.springbootcamp.utils.ResponseFactory;
 import org.springframework.http.ResponseEntity;

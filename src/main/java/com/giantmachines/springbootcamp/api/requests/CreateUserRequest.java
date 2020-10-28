@@ -1,4 +1,4 @@
-package com.giantmachines.springbootcamp.requests;
+package com.giantmachines.springbootcamp.api.requests;
 
 import lombok.Getter;
 
@@ -15,5 +15,5 @@ public class CreateUserRequest {
   @NotEmpty
   @NotBlank
   private String lastName;
-  
+
 }

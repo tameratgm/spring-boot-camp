@@ -1,7 +1,7 @@
 package com.giantmachines.springbootcamp.services;
 
+import com.giantmachines.springbootcamp.api.requests.CreateUserRequest;
 import com.giantmachines.springbootcamp.models.User;
-import com.giantmachines.springbootcamp.requests.CreateUserRequest;
 
 import java.util.Optional;
 

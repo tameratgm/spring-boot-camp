@@ -1,8 +1,8 @@
 package com.giantmachines.springbootcamp.services.impl;
 
+import com.giantmachines.springbootcamp.api.requests.CreateUserRequest;
 import com.giantmachines.springbootcamp.models.User;
 import com.giantmachines.springbootcamp.repositories.UserRepository;
-import com.giantmachines.springbootcamp.requests.CreateUserRequest;
 import com.giantmachines.springbootcamp.services.UserService;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.giantmachines.springbootcamp.requests;
+package com.giantmachines.springbootcamp.api.requests;
 
 import lombok.Getter;
 
