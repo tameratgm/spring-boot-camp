@@ -1,11 +1,13 @@
 package com.giantmachines.springbootcamp.controllers;
 
 import com.giantmachines.springbootcamp.api.requests.CreateBookRequest;
+import com.giantmachines.springbootcamp.api.requests.PatchBookRequest;
 import com.giantmachines.springbootcamp.models.Book;
 import com.giantmachines.springbootcamp.services.BookService;
 import com.giantmachines.springbootcamp.utils.ResponseFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -45,6 +47,14 @@ public class BookController {
   public ResponseEntity<Book> getById(@PathVariable long id) {
 
     Optional<Book> book = bookService.get(id);
+
+    return ResponseFactory.ok(book);
+  }
+
+  @PatchMapping("/{id}")
+  public ResponseEntity<Book> patch(@PathVariable long id, @RequestBody PatchBookRequest request) {
+
+    Optional<Book> book = bookService.updateAvailability(id, request);
 
     return ResponseFactory.ok(book);
   }
