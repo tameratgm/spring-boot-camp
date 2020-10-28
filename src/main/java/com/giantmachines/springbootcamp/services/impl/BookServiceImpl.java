@@ -33,7 +33,7 @@ public class BookServiceImpl implements BookService {
             .title(bookRequest.getTitle())
             .build();
 
-    return bookRepository.save(book);
+    return save(book);
   }
 
   @Override
@@ -45,5 +45,10 @@ public class BookServiceImpl implements BookService {
   public List<Book> getAll() {
     return CollectionFactory.toList(bookRepository.findAll());
   }
-  
+
+  @Override
+  public Book save(Book book) {
+    return bookRepository.save(book);
+  }
+
 }

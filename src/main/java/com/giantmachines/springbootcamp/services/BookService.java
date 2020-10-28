@@ -13,4 +13,6 @@ public interface BookService {
   Optional<Book> get(long id);
 
   List<Book> getAll();
+
+  Book save(Book book);
 }
