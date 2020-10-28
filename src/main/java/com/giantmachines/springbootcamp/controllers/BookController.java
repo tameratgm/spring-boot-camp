@@ -4,6 +4,8 @@ import com.giantmachines.springbootcamp.api.requests.CreateBookRequest;
 import com.giantmachines.springbootcamp.api.requests.PatchBookRequest;
 import com.giantmachines.springbootcamp.models.Book;
 import com.giantmachines.springbootcamp.services.BookService;
+import com.giantmachines.springbootcamp.services.LibraryService;
+import com.giantmachines.springbootcamp.services.UserService;
 import com.giantmachines.springbootcamp.utils.ResponseFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,10 +24,16 @@ import java.util.Optional;
 @RequestMapping("books")
 public class BookController {
 
-  private BookService bookService;
+  private final BookService bookService;
+  private final UserService userService;
+  private final LibraryService libraryService;
 
-  public BookController(BookService bookService) {
+  public BookController(BookService bookService,
+                        UserService userService,
+                        LibraryService libraryService) {
     this.bookService = bookService;
+    this.userService = userService;
+    this.libraryService = libraryService;
   }
 
   @PostMapping
@@ -54,9 +62,11 @@ public class BookController {
   @PatchMapping("/{id}")
   public ResponseEntity<Book> patch(@PathVariable long id, @RequestBody PatchBookRequest request) {
 
-    Optional<Book> book = bookService.updateAvailability(id, request);
+    Optional<Book> updatedBook = bookService.get(id)
+            .flatMap(book -> userService.get(request.getUserId())
+                    .map(user -> libraryService.updateAvailability(book, user, request.getOperation())));
 
-    return ResponseFactory.ok(book);
+    return ResponseFactory.ok(updatedBook);
   }
 
 }

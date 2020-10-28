@@ -1,7 +1,6 @@
 package com.giantmachines.springbootcamp.services;
 
 import com.giantmachines.springbootcamp.api.requests.CreateBookRequest;
-import com.giantmachines.springbootcamp.api.requests.PatchBookRequest;
 import com.giantmachines.springbootcamp.models.Book;
 
 import java.util.List;
@@ -14,6 +13,4 @@ public interface BookService {
   Optional<Book> get(long id);
 
   List<Book> getAll();
-
-  Optional<Book> updateAvailability(long id, PatchBookRequest request);
 }
