@@ -14,5 +14,8 @@ public interface BookService {
 
   List<Book> getAll();
 
+  List<Book> fetchBestSellers();
+
   Book save(Book book);
+
 }

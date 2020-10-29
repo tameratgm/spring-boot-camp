@@ -4,13 +4,14 @@ import com.giantmachines.springbootcamp.api.requests.CreateBookRequest;
 import com.giantmachines.springbootcamp.models.Book;
 import com.giantmachines.springbootcamp.repositories.BookRepository;
 import com.giantmachines.springbootcamp.services.BookService;
-import com.giantmachines.springbootcamp.services.UserService;
+import com.giantmachines.springbootcamp.services.integrations.nyt.NewYorkTimesBookService;
 import com.giantmachines.springbootcamp.utils.CollectionFactory;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -18,12 +19,12 @@ public class BookServiceImpl implements BookService {
 
   private final BookRepository bookRepository;
 
-  private final UserService userService;
+  private final NewYorkTimesBookService newYorkTimesBookService;
 
   public BookServiceImpl(BookRepository bookRepository,
-                         UserService userService) {
+                         NewYorkTimesBookService newYorkTimesBookService) {
     this.bookRepository = bookRepository;
-    this.userService = userService;
+    this.newYorkTimesBookService = newYorkTimesBookService;
   }
 
   @Override
@@ -44,6 +45,15 @@ public class BookServiceImpl implements BookService {
   @Override
   public List<Book> getAll() {
     return CollectionFactory.toList(bookRepository.findAll());
+  }
+
+  @Override
+  public List<Book> fetchBestSellers() {
+    return newYorkTimesBookService.fetchBestSellers()
+            .stream()
+            .filter(book -> bookRepository.findByTitle(book.getTitle()).isEmpty())
+            .map(this::save)
+            .collect(Collectors.toList());
   }
 
   @Override
