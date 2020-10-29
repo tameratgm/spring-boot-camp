@@ -12,5 +12,4 @@ public interface SecurityConstants {
 
   String SIGN_UP_URL = "/users/signup";
 
-  String H2_CONSOLE_URL = "/h2-console/**";
 }
