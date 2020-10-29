@@ -1,6 +1,6 @@
 package com.giantmachines.springbootcamp.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -30,12 +30,18 @@ public class User {
 
   private String lastName;
 
-  @JsonBackReference
+  @JsonIgnore
+  private String username;
+
+  @JsonIgnore()
+  private String password;
+
+  @JsonIgnore
   @OneToMany(mappedBy = "owner")
   @Builder.Default
   private List<Book> books = List.of();
 
-  @JsonBackReference
+  @JsonIgnore
   @OneToMany(mappedBy = "writer")
   @Builder.Default
   private List<Review> reviews = List.of();

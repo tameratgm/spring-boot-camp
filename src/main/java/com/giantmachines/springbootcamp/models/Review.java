@@ -1,7 +1,6 @@
 package com.giantmachines.springbootcamp.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,7 +25,6 @@ public class Review {
   @GeneratedValue
   private long id;
 
-  @JsonManagedReference
   @ManyToOne(cascade = CascadeType.ALL)
   private User writer;
 

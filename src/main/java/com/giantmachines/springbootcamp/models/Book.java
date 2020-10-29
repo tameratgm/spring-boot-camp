@@ -1,7 +1,6 @@
 package com.giantmachines.springbootcamp.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,8 +29,7 @@ public class Book {
   private long id;
 
   private String title;
-
-  @JsonManagedReference
+  
   @ManyToOne(cascade = CascadeType.ALL)
   private User owner;
 

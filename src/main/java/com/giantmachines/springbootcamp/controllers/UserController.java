@@ -25,8 +25,8 @@ public class UserController {
     this.userService = userService;
   }
 
-  @PostMapping
-  public ResponseEntity<User> create(@Valid @RequestBody CreateUserRequest request) {
+  @PostMapping("/signup")
+  public ResponseEntity<User> signup(@Valid @RequestBody CreateUserRequest request) {
 
     User user = userService.create(request);
 
@@ -40,4 +40,5 @@ public class UserController {
 
     return ResponseFactory.ok(user);
   }
+
 }
