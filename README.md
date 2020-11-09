@@ -8,7 +8,7 @@ This is an implementation of the [Java Spring Boot Camp](https://docs.google.com
 
 ## Running
 
-`mvn spring-boot:run`
+`SPRING_PROFILES_ACTIVE=local mvn spring-boot:run`
 
 ## Resources
 
